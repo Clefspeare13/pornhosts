@@ -1,0 +1,24 @@
+*	text=auto
+
+# Normalize hosts files into LF UTF-8 style
+**hosts text eol=lf
+
+# Normalize special cases to LF
+*.txt text eol=lf
+*.ini text eol=lf
+*.csv text eol=lf
+*.list text eol=lf
+*.md text eol=lf
+*.sh text eol=lf
+*.yml text eol=lf
+
+# Should ensure submitted domain.list are encode with LF (\n) on gitlab
+/**/domain.list text eol=lf
+/**/wildcard.list text eol=lf
+
+# Ensure the non-standard windows understand files ending....
+# PS: Before you comments on this comment... *nix is by far the most used OS
+# EVER!!!
+**_windows_** text eol=crlf
+
+# read more here https://help.github.com/en/github/using-git/configuring-git-to-handle-line-endings
