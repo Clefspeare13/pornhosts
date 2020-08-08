@@ -110,17 +110,17 @@ fi
 
 if [ -n "$issue" ]
 then
-	echo -e "\nCloses https://github.com/Clefspeare13/pornhosts/issues/${issue}" >> 'commit.txt'
+	printf "\nCloses https://github.com/Clefspeare13/pornhosts/issues/${issue}" >> 'commit.txt'
 fi
 
 if [ -n "$pissue" ]
 then
-	echo -e "\nSource: https://github.com/spirillen/pornhosts/issues/${pissue}" >> 'commit.txt'
+	printf "\nSource: https://github.com/spirillen/pornhosts/issues/${pissue}" >> 'commit.txt'
 fi
 
 if [ -n "$tissue" ]
 then
-	echo -e "\nSource: https://www.mypdns.org/T$tissue" >> 'commit.txt'
+	printf "\nSource: https://www.mypdns.org/T$tissue" >> 'commit.txt'
 fi
 
 echo -e "\nPing: @Clefspeare13 @Spirillen" >> 'commit.txt'

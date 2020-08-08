@@ -2,3 +2,5 @@ ysp.test
 
 
 This commit will add the following domains
+Deleted outdated `icdn02.igayporn.tv.sds.rncdn7.co`
+
