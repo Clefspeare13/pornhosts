@@ -1,3 +1,4 @@
 test_results/output/**
 **.tmp
 miniconda.sh
+commit.txt
