@@ -3133,6 +3133,8 @@ evilangelvideo.com
 ev-ph.ypncdn.com
 ev.rdtcdn.com
 ev.ypncdn.com
+ew1-18.nginxborder-server.naiadsystems.com
+ew1-22.nginxborder-server.naiadsystems.com
 ewm.booru.org
 ex11.exmasters.com
 ex12.exmasters.com
@@ -4374,6 +4376,7 @@ mangafap.com
 mangahentai.me
 manhwa18.com
 manhwahentai.me
+manifest-server.naiadsystems.com
 manporn.xxx
 manytoon.com
 mas.assylum.com
