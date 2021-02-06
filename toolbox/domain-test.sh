@@ -19,11 +19,11 @@ git_dir="$(git rev-parse --show-toplevel)"
 sourcedir="${git_dir}/submit_here"
 outdir="${git_dir}/download_here" # no trailing / as it would make a double //
 
-mkdir -p "$outdir"
+mkdir -p "${outdir}"
 
 # For test results
 outputDir="${git_dir}/test_results"
-mkdir -p "$outputDir"
+mkdir -p "${outputDir}"
 
 # *******************************************
 # Set the sources (file names in submit_here)
@@ -75,15 +75,15 @@ hash conda
 # First Update Conda
 conda update -q conda
 
-conda activate pyfunceble-dev
-conda install python=3.9.0
+conda activate pyfunceble4
+conda install python=3.9.1
 
 # Make sure output dir is there
 mkdir -p "${outputDir}"
 
 pip install --upgrade pip -q
 pip uninstall -yq pyfunceble-dev
-pip install --no-cache-dir --upgrade -q pyfunceble-dev
+pip install --no-cache-dir --upgrade -q --pre pyfunceble-dev
 
 
 # Tell the script to install/update the configuration file automatically.
@@ -100,7 +100,9 @@ export PYFUNCEBLE_OUTPUT_LOCATION="${outputDir}/"
 
 export PYFUNCEBLE_CONFIG_DIR="${HOME}/.config/PyFunceble/"
 
-read -erp "Enter any custom test string: " -i "-dbr 0 -ex -m -p $(nproc --ignore=2) -h --idna -a --plain --hierarchical -db --database-type mariadb --dns 192.168.1.105:53 --complements" -a pyfuncebleArgs
+read -erp "Enter any custom test string: " -i "-ex -h -a --hierarchical
+    -db --database-type mariadb --dns 192.168.1.1:53
+    --complements" -a pyfuncebleArgs
 
 
 # Run PyFunceble
@@ -109,30 +111,20 @@ pyfunceble --version
 
 printf "\nTesting: snuff\n"
 
-pyfunceble "${pyfuncebleArgs[@]}" -f "$snuff_source" && \
-  grep -vE '^(#|$)' "${outputDir}/output/domains/ACTIVE/list" > "$snuff_active" \
-  && grep -vE '^(#|$)' "${outputDir}/output/domains/INACTIVE/list" > "$snuff_dead" \
+pyfunceble "${pyfuncebleArgs[@]}" -f "$snuff_source" "$mobile_source" \
+  "$strict_source" "$porn_source"
+
+
+grep -vE '^(#|$)' "${outputDir}/output/snuff.txt/domains/ACTIVE/list" > "$snuff_active" \
+  && grep -vE '^(#|$)' "${outputDir}/output/snuff.txt/domains/INACTIVE/list" > "$snuff_dead" \
+  && grep -vE '^(#|$)' "${outputDir}/output/mobile.txt/domains/ACTIVE/list" > "$mobile_active" \
+  && grep -vE '^(#|$)' "${outputDir}/output/mobile.txt/domains/INACTIVE/list" > "$mobile_dead" \
+  && grep -vE '^(#|$)' "${outputDir}/output/strict_adult.txt/domains/ACTIVE/list" > "$strict_active" \
+  && grep -vE '^(#|$)' "${outputDir}/output/strict_adult.txt/domains/INACTIVE/list" > "$strict_dead" \
+  && grep -vE '^(#|$)' "${outputDir}/output/hosts.txt/domains/ACTIVE/list" > "$porn_active" \
+  && grep -vE '^(#|$)' "${outputDir}/output/hosts.txt/domains/INACTIVE/list" > "$porn_dead" \
+
   && delOutPutDir
-
-printf "\nTesting: mobile\n"
-
-pyfunceble "${pyfuncebleArgs[@]}" -f "$mobile_source" && \
-  grep -vE '^(#|$)' "${outputDir}/output/domains/ACTIVE/list" > "$mobile_active" \
-  && grep -vE '^(#|$)' "${outputDir}/output/domains/INACTIVE/list" > "$mobile_dead" \
-  && delOutPutDir
-
-printf "\nTesting: strict adult\n"
-pyfunceble "${pyfuncebleArgs[@]}" -f "$strict_source" && \
-  grep -vE '^(#|$)' "${outputDir}/output/domains/ACTIVE/list" > "$strict_active" \
-  && grep -vE '^(#|$)' "${outputDir}/output/domains/INACTIVE/list" > "$strict_dead" \
-  && delOutPutDir
-
-printf "\nTesting: hosts\n"
-pyfunceble "${pyfuncebleArgs[@]}" -f  "$porn_source" \
-  && grep -vE '^(#|$)' "${outputDir}/output/domains/ACTIVE/list" > "$porn_active" \
-  && grep -vE '^(#|$)' "${outputDir}/output/domains/INACTIVE/list" > "$porn_dead" \
-  && delOutPutDir
-
 
 exit ${?}
 
