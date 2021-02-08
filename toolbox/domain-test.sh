@@ -75,16 +75,18 @@ hash conda
 # First Update Conda
 conda update -q conda
 
-conda activate pyfunceble4
-conda install python=3.9.1
+# conda activate pyfunceble4
+# conda install python=3.9.1
 
 # Make sure output dir is there
 mkdir -p "${outputDir}"
 
-pip install --upgrade pip -q
-pip uninstall -yq pyfunceble-dev
-pip install --no-cache-dir --upgrade -q --pre pyfunceble-dev
+# pip install --upgrade pip -q
+# pip uninstall -yq pyfunceble-dev
+# pip install --no-cache-dir --upgrade -q --pre pyfunceble-dev
 
+conda env update -f "${git_dir}/toolbox/.environment.yaml" --prune
+conda activate pyfunceble4
 
 # Tell the script to install/update the configuration file automatically.
 export PYFUNCEBLE_AUTO_CONFIGURATION=yes
@@ -100,16 +102,14 @@ export PYFUNCEBLE_OUTPUT_LOCATION="${outputDir}/"
 
 export PYFUNCEBLE_CONFIG_DIR="${HOME}/.config/PyFunceble/"
 
-read -erp "Enter any custom test string: " -i "-ex -h -a --hierarchical
-    -db --database-type mariadb --dns 192.168.1.1:53
-    --complements" -a pyfuncebleArgs
+read -erp "Enter any custom test string: " -i "-ex -h -a --hierarchical --database-type mariadb --dns 185.109.89.254 130.225.244.166 130.226.161.34 185.38.24.52 198.180.150.12 --complements" -a pyfuncebleArgs
 
 
 # Run PyFunceble
 # Switched to use array to keep quotes for SC2086
 pyfunceble --version
 
-printf "\nTesting: snuff\n"
+printf "\nTesting: All files\n"
 
 pyfunceble "${pyfuncebleArgs[@]}" -f "$snuff_source" "$mobile_source" \
   "$strict_source" "$porn_source"
@@ -125,6 +125,8 @@ grep -vE '^(#|$)' "${outputDir}/output/snuff.txt/domains/ACTIVE/list" > "$snuff_
   && grep -vE '^(#|$)' "${outputDir}/output/hosts.txt/domains/INACTIVE/list" > "$porn_dead" \
 
   && delOutPutDir
+
+conda deactivate
 
 exit ${?}
 
