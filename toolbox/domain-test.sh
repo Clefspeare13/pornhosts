@@ -123,7 +123,6 @@ grep -vE '^(#|$)' "${outputDir}/output/snuff.txt/domains/ACTIVE/list" > "$snuff_
   && grep -vE '^(#|$)' "${outputDir}/output/strict_adult.txt/domains/INACTIVE/list" > "$strict_dead" \
   && grep -vE '^(#|$)' "${outputDir}/output/hosts.txt/domains/ACTIVE/list" > "$porn_active" \
   && grep -vE '^(#|$)' "${outputDir}/output/hosts.txt/domains/INACTIVE/list" > "$porn_dead" \
-
   && delOutPutDir
 
 conda deactivate
