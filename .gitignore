@@ -2,3 +2,4 @@ test_results/output/**
 **.tmp
 miniconda.sh
 commit.txt
+toolbox/.environment.yaml
