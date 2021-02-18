@@ -3627,6 +3627,7 @@ furbooru.org
 furry.booru.org
 furrycdn.org
 futabooru.booru.org
+fvs.io
 g6hentai.com
 gabbyquinteros.com
 galaxy.booru.org
@@ -6544,6 +6545,7 @@ t.hotgirls4all.com
 t.htvncdn.net
 thumb.aporntv.com
 thumbcdn.cliphunter.com
+thumb.fvs.io
 thumb-l3.flixcdn.com
 thumb-lvlt.xhcdn.com
 thumbnail.hgamecg.com
